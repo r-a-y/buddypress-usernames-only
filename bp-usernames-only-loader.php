@@ -8,7 +8,7 @@ Plugin URI: http://buddypress.org/community/groups/buddypress-usernames-only
 Version: 0.5
 
 License: CC-GNU-GPL http://creativecommons.org/licenses/GPL/2.0/
-Donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KU38JAZ2DW8TW
+Donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q6F2EM2BPQ2DS
 */
 
 function bp_usernames_init() {
