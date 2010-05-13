@@ -42,7 +42,7 @@ function ray_bp_core_get_user_displayname($name, $user_id) {
 	
 	return $displayed_user->user_login;
 }
-//add_filter( 'bp_core_get_user_displayname', 'ray_bp_core_get_user_displayname', 1, 2 );
+add_filter( 'bp_core_get_user_displayname', 'ray_bp_core_get_user_displayname', 1, 2 );
 
 
 /* MEMBER OVERRIDES ------------------ */
