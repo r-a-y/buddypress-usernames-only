@@ -70,5 +70,8 @@ If you downloaded this plugin and like it, please:
 
 == Changelog ==
 
+= 0.51 =
+* Forgot to uncomment a filter! D'oh!
+
 = 0.5 =
 * First version!
