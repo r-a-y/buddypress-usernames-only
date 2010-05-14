@@ -20,7 +20,7 @@ This plugin overrides display names across your BuddyPress site with usernames. 
 
 Also, this plugin requires two core hacks to BuddyPress:
 
-Change line 578 in /buddypress/bp-activity-templatetags.php to:
+Change line 578 in /buddypress/bp-activity/bp-activity-templatetags.php to:
 
 `$content .= '<div class="acomment-meta"><a href="' . bp_core_get_user_domain( $comment->user_id, $comment->user_nicename, $comment->user_login ) . '">' . apply_filters( 'bp_acomment_name', $comment->user_fullname, $comment ) . '</a> &middot; ' . sprintf( __( '%s ago', 'buddypress' ), bp_core_time_since( strtotime( $comment->date_recorded ) ) );`
 
