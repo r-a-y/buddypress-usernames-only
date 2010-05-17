@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: buddypress, username, usernames
 Requires at least: WP 2.9 & BuddyPress 1.2
 Tested up to: WP 2.9.2 & BuddyPress 1.2.3
-Stable tag: 0.51
+Stable tag: 0.52
 
 Override display names across your BuddyPress site with usernames.
 
@@ -18,7 +18,12 @@ This plugin overrides display names across your BuddyPress site with usernames. 
 1. Download, install and activate the plugin.
 1. If you're using WP 3.0 in network mode or WPMU and you have enabled user blogs, activate the plugin sitewide.
 
-Also, this plugin requires two core hacks to BuddyPress:
+Also, this plugin requires replacing two core files in BuddyPress with the modified ones included in the /replacements/ folder:
+
+* /buddypress/bp-activity/bp-activity-templatetags.php
+* /buddypress/bp-core.php
+
+If you'd rather apply these changes yourself:
 
 Change line 578 in /buddypress/bp-activity/bp-activity-templatetags.php to:
 
@@ -28,7 +33,7 @@ Change line 1190 in /buddypress/bp-core.php to:
 
 `return apply_filters( 'bp_core_get_user_displayname', $fullname, $user_id );`
 
-Line numbers mentioned above reference BuddyPress 1.2.3.
+Line numbers and files included reference **BuddyPress 1.2.3**.
 
 
 == Frequently Asked Questions ==
@@ -54,7 +59,14 @@ New activity updates will correctly show their username.
 
 * If you're using WP 3.0 in network mode or WPMU and you're seeing display names on blog comments, please try following step 2 in the installation instructions.
 
-The only place you should see a user's display name is on a member's profile loop, other than that if you notice a display name on any other page on BuddyPress, please let me know!
+The only place you should see a user's display name is on a member's profile, other than that if you notice a display name on any other page on BuddyPress, please let me know!
+
+
+#### Internal configuration ####
+
+By default, display names are enabled on member profile pages.  If you prefer usernames to be shown, add the following snippet to your wp-config.php file:
+
+`define( 'BP_SHOW_DISPLAYNAME_ON_PROFILE', false );`
 
 
 == Donate! ==
@@ -69,6 +81,13 @@ If you downloaded this plugin and like it, please:
 
 
 == Changelog ==
+
+= 0.52 =
+* Show display name in member profiles by default
+* Fix multiple replacement in activity updates and RSS feeds (thanks to ekawaii for reporting)
+* Fix comment author usernames (thanks to piphut and intimez for reporting)
+* Added modified core files to the plugin
+
 
 = 0.51 =
 * Forgot to uncomment a filter! D'oh!
