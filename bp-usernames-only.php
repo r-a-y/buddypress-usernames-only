@@ -1,4 +1,10 @@
 <?php
+if( !defined( "BP_SHOW_DISPLAYNAME_ON_PROFILE" ) )
+	define( 'BP_SHOW_DISPLAYNAME_ON_PROFILE', true );
+
+	if( BP_SHOW_DISPLAYNAME_ON_PROFILE != true )
+		add_filter( 'bp_displayed_user_fullname' , 'ray_bp_displayed_user_fullname' );
+
 /* CORE OVERRIDES ------------------ */
 
 function ray_bp_core_get_userlink( $link, $user_id ) {
@@ -14,7 +20,6 @@ function ray_bp_displayed_user_fullname() {
 	
 	return $bp->displayed_user->userdata->user_login;
 }
-add_filter( 'bp_displayed_user_fullname' , 'ray_bp_displayed_user_fullname' );
 
 // used in private messages (sent between blah and x)
 function ray_bp_get_loggedin_user_fullname() {
@@ -81,20 +86,18 @@ add_filter( 'bp_acomment_name' , 'ray_bp_acomment_name', 1, 2 );
 function ray_bp_get_activity_action( $action, $activity ) {
 
 	$displayed_user = bp_core_get_core_userdata( $activity->user_id );
-		
-	return str_replace( $displayed_user->display_name, $displayed_user->user_login, $action );
 
+	return preg_replace( '/' . $displayed_user->display_name . '/', $displayed_user->user_login, $action, 2 );
 }
 add_filter( 'bp_get_activity_action', 'ray_bp_get_activity_action', 1, 2 );
 
 // RSS feed title
-function ray_bp_get_activity_feed_item_title( $action ) {
+function ray_bp_get_activity_feed_item_title( $title ) {
 	global $activities_template;
 	
 	$displayed_user = bp_core_get_core_userdata( $activities_template->activity->user_id );
 		
-	return str_replace( $displayed_user->display_name, $displayed_user->user_login, $action );
-
+	return preg_replace( '/' . $displayed_user->display_name . '/', $displayed_user->user_login, $title, 1 );
 }
 add_filter( 'bp_get_activity_feed_item_title', 'ray_bp_get_activity_feed_item_title' );
 
@@ -158,9 +161,10 @@ add_action( 'bp_before_message_meta', 'ray_bp_message_reply_ajax_sent_name' );
 // used in comment author link
 function ray_get_comment_author( $author ) {
 	global $comment;
-	
-	if($comment->user_id > 0) {
-		return bp_core_get_userlink( $comment->user_id );
+
+	if( $comment->user_id > 0 ) {
+		$displayed_user = bp_core_get_core_userdata( $comment->user_id );
+		return $displayed_user->user_login;
 	}
 	else
 		return $author;	
