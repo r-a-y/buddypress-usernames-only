@@ -2,8 +2,8 @@
 Contributors: r-a-y
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q6F2EM2BPQ2DS
 Tags: buddypress, username, usernames
-Requires at least: WP 2.9 & BuddyPress 1.2
-Tested up to: WP 2.9.2 & BuddyPress 1.2.3
+Requires at least: WP 2.9 & BuddyPress 1.2.4
+Tested up to: WP 2.9.2 & BuddyPress 1.2.4
 Stable tag: 0.52
 
 Override display names across your BuddyPress site with usernames.
@@ -15,40 +15,13 @@ This plugin overrides display names across your BuddyPress site with usernames. 
 
 == Installation ==
 
+#### This plugin requires BuddyPress 1.2.4 ####
+
 1. Download, install and activate the plugin.
 1. If you're using WP 3.0 in network mode or WPMU and you have enabled user blogs, activate the plugin sitewide.
 
-Also, this plugin requires replacing two core files in BuddyPress with the modified ones included in the /replacements/ folder:
-
-* /buddypress/bp-activity/bp-activity-templatetags.php
-* /buddypress/bp-core.php
-
-If you'd rather apply these changes yourself:
-
-Change line 578 in /buddypress/bp-activity/bp-activity-templatetags.php to:
-
-`$content .= '<div class="acomment-meta"><a href="' . bp_core_get_user_domain( $comment->user_id, $comment->user_nicename, $comment->user_login ) . '">' . apply_filters( 'bp_acomment_name', $comment->user_fullname, $comment ) . '</a> &middot; ' . sprintf( __( '%s ago', 'buddypress' ), bp_core_time_since( strtotime( $comment->date_recorded ) ) );`
-
-Change line 1190 in /buddypress/bp-core.php to:
-
-`return apply_filters( 'bp_core_get_user_displayname', $fullname, $user_id );`
-
-Line numbers and files included reference **BuddyPress 1.2.3**.
-
 
 == Frequently Asked Questions ==
-
-#### Why does this plugin require a few hacks to BuddyPress? ####
-
-As of BuddyPress 1.2.3, the two filters that require hacking needed to pass some additional variables.
-
-I've requested that these modifications be included in a future release of BuddyPress.
-
-
-#### So why release the plugin now? ####
-
-Due to demand ;)
-
 
 #### I still see some display names on my BP site! ####
 
