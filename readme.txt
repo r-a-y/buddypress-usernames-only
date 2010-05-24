@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: buddypress, username, usernames
 Requires at least: WP 2.9 & BuddyPress 1.2.4
 Tested up to: WP 2.9.2 & BuddyPress 1.2.4
-Stable tag: 0.52
+Stable tag: 0.53
 
 Override display names across your BuddyPress site with usernames.
 
@@ -24,8 +24,6 @@ This plugin overrides display names across your BuddyPress site with usernames. 
 == Frequently Asked Questions ==
 
 #### I still see some display names on my BP site! ####
-
-* Did you apply the core hacks listed in the installation section?
 
 * If your members frequently changed their display name, past activity updates will still show their old display name.
 New activity updates will correctly show their username.
@@ -54,6 +52,11 @@ If you downloaded this plugin and like it, please:
 
 
 == Changelog ==
+
+= 0.53 =
+* Removed bp_member_name filter (fixes compatibility with [Welcome Pack](http://wordpress.org/extend/plugins/welcome-pack))
+* Tagged compatibility with BP 1.2.4
+* Removed packaged replacement files as core hacks are no longer needed
 
 = 0.52 =
 * Show display name in member profiles by default
