@@ -37,7 +37,6 @@ function ray_bp_get_member_name( $name ) {
 }
 add_filter( 'bp_get_member_name' , 'ray_bp_get_member_name' );
 
-// requires core hack @ line 1190 - bp-core.php
 // used in a lot of places
 // - email notifications
 // - messages subnav (From: x)
@@ -48,17 +47,6 @@ function ray_bp_core_get_user_displayname($name, $user_id) {
 	return $displayed_user->user_login;
 }
 add_filter( 'bp_core_get_user_displayname', 'ray_bp_core_get_user_displayname', 1, 2 );
-
-
-/* MEMBER OVERRIDES ------------------ */
-
-// used in member directory
-function ray_bp_member_username() {
-	global $members_template;
-	
-	return $members_template->member->user_login;
-}
-add_filter( 'bp_member_name' , 'ray_bp_member_username' );
 
 
 /* GROUP OVERRIDES ------------------ */
@@ -75,7 +63,6 @@ add_filter( 'bp_get_group_member_link', 'ray_bp_get_group_member_link' );
 /* ACTIVITY OVERRIDES ------------------ */
 
 // used in activity comments
-// requires core hack @ line 578 - bp-activity/bp-activity-templatetags.php
 function ray_bp_acomment_name( $name, $comment ) {
 	return $comment->user_login;
 }
