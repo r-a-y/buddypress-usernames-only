@@ -71,10 +71,9 @@ add_filter( 'bp_acomment_name' , 'ray_bp_acomment_name', 1, 2 );
 // used in parent activity update
 // not the best method... especially if the user has changed their display name multiple times
 function ray_bp_get_activity_action( $action, $activity ) {
-
 	$displayed_user = bp_core_get_core_userdata( $activity->user_id );
 
-	return preg_replace( '/' . $displayed_user->display_name . '/', $displayed_user->user_login, $action, 2 );
+	return str_replace( '>' . $displayed_user->display_name . '<', '>' . $displayed_user->user_login . '<', $action );
 }
 add_filter( 'bp_get_activity_action', 'ray_bp_get_activity_action', 1, 2 );
 
