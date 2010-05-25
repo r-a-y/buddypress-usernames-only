@@ -3,8 +3,8 @@ Contributors: r-a-y
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q6F2EM2BPQ2DS
 Tags: buddypress, username, usernames
 Requires at least: WP 2.9 & BuddyPress 1.2.4
-Tested up to: WP 2.9.2 & BuddyPress 1.2.4
-Stable tag: 0.53
+Tested up to: WP 2.9.2 & BuddyPress 1.2.4.1
+Stable tag: 0.54
 
 Override display names across your BuddyPress site with usernames.
 
@@ -52,6 +52,9 @@ If you downloaded this plugin and like it, please:
 
 
 == Changelog ==
+
+= 0.54 =
+* Fix multiple replacement in activity updates again! (thanks to intimez for reporting)
 
 = 0.53 =
 * Removed bp_member_name filter (fixes compatibility with [Welcome Pack](http://wordpress.org/extend/plugins/welcome-pack))
