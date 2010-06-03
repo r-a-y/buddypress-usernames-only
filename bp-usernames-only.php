@@ -48,6 +48,23 @@ function ray_bp_core_get_user_displayname($name, $user_id) {
 }
 add_filter( 'bp_core_get_user_displayname', 'ray_bp_core_get_user_displayname', 1, 2 );
 
+// used for BP followers members listing
+function ray_bp_get_user_firstname( $name ) {
+	global $bp, $members_template;
+
+	// follower member listing
+	if( $members_template )
+		return $members_template->member->user_login;
+
+	// profile header follow button
+	elseif ( $bp->displayed_user->id )
+		return $bp->displayed_user->userdata->user_login;
+
+	else
+		return $name;
+}
+add_filter( 'bp_get_user_firstname' , 'ray_bp_get_user_firstname' );
+
 
 /* GROUP OVERRIDES ------------------ */
 
