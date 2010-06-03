@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: buddypress, username, usernames
 Requires at least: WP 2.9 & BuddyPress 1.2.4
 Tested up to: WP 2.9.2 & BuddyPress 1.2.4.1
-Stable tag: 0.54
+Stable tag: 0.55
 
 Override display names across your BuddyPress site with usernames.
 
@@ -52,6 +52,9 @@ If you downloaded this plugin and like it, please:
 
 
 == Changelog ==
+
+= 0.55 =
+* Added button support for the [BuddyPress Followers](http://wordpress.org/extend/plugins/buddypress-followers) plugin
 
 = 0.54 =
 * Fix multiple replacement in activity updates again! (thanks to intimez for reporting)
