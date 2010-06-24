@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: buddypress, username, usernames
 Requires at least: WP 2.9 & BuddyPress 1.2.4
 Tested up to: WP 3.0 & BuddyPress 1.2.4.1
-Stable tag: 0.56
+Stable tag: trunk
 
 Override display names across your BuddyPress site with usernames.
 
