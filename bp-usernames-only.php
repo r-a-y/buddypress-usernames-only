@@ -9,8 +9,10 @@ if( !defined( "BP_SHOW_DISPLAYNAME_ON_PROFILE" ) )
 
 function ray_bp_core_get_userlink( $link, $user_id ) {
 	$displayed_user = bp_core_get_core_userdata( $user_id );
-		
-	return str_replace( $displayed_user->display_name, $displayed_user->user_login, $link );
+
+	preg_match_all("/>([^\"]*)</", $link, $user_match);
+
+	return str_replace( $user_match[1], $displayed_user->user_login, $link );
 }
 add_filter( 'bp_core_get_userlink', 'ray_bp_core_get_userlink', 1, 2 );
 
@@ -64,6 +66,18 @@ function ray_bp_get_user_firstname( $name ) {
 		return $name;
 }
 add_filter( 'bp_get_user_firstname' , 'ray_bp_get_user_firstname' );
+
+// used in <title> tag
+function ray_bp_page_title( $title ) {
+	global $bp;
+
+	if ( bp_is_member() ) {
+		$title = str_replace( $bp->displayed_user->fullname, $bp->displayed_user->userdata->user_login, $title );
+	}
+
+	return $title;
+}
+add_filter( 'bp_page_title', 'ray_bp_page_title' );
 
 
 /* GROUP OVERRIDES ------------------ */
