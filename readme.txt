@@ -55,7 +55,7 @@ If you downloaded this plugin and like it, please:
 
 = 0.56 =
 * Fix username overlap (thanks to fzncloud and nuprn1 for reporting)
-* Replace display name in <title> tag (thanks to meini for reporting)
+* Replace display name in `<title>` tag (thanks to meini for reporting)
 
 = 0.55 =
 * Added button support for the [BuddyPress Followers](http://wordpress.org/extend/plugins/buddypress-followers) plugin
