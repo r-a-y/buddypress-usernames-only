@@ -3,7 +3,7 @@ Contributors: r-a-y
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q6F2EM2BPQ2DS
 Tags: buddypress, username, usernames
 Requires at least: WP 2.9 & BuddyPress 1.2.4
-Tested up to: WP 3.0 & BuddyPress 1.2.4.1
+Tested up to: WP 3.0 & BuddyPress 1.2.5
 Stable tag: trunk
 
 Override display names across your BuddyPress site with usernames.
@@ -52,6 +52,9 @@ If you downloaded this plugin and like it, please:
 
 
 == Changelog ==
+
+= 0.57 =
+* Fix unique identifier block on member profiles (thanks to mrjarbenne for reporting)
 
 = 0.56 =
 * Fix username overlap (thanks to fzncloud and nuprn1 for reporting)
