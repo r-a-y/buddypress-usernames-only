@@ -54,14 +54,20 @@ add_filter( 'bp_core_get_user_displayname', 'ray_bp_core_get_user_displayname', 
 function ray_bp_get_user_firstname( $name ) {
 	global $bp, $members_template;
 
-	// follower member listing
-	// conditional is used because of "unique identifier" block on member profiles
-	if( $members_template && $members_template->member->user_login != $bp->loggedin_user->userdata->user_login ) {
+	// check to see if we're on a follow page
+	if( strpos($bp->current_component, $bp->follow->id) !== false ) {
+		// now we do a crazy workaround...
+		if( $members_template->member->user_login != $bp->loggedin_user->userdata->user_login )
+			return $members_template->member->user_login;
+	}
+
+	// members directory
+	elseif ( bp_is_directory() ) {
 		return $members_template->member->user_login;
 	}
 
 	// profile header follow button
-	elseif ( $bp->displayed_user->id )
+	if ( $bp->displayed_user->id )
 		return $bp->displayed_user->userdata->user_login;
 
 	return $name;
