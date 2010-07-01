@@ -53,6 +53,9 @@ If you downloaded this plugin and like it, please:
 
 == Changelog ==
 
+= 0.58 =
+* Fix unique identifier block on member profiles again! (thanks to rossagrant and erich73 for reporting)
+
 = 0.57 =
 * Fix unique identifier block on member profiles (thanks to mrjarbenne for reporting)
 
