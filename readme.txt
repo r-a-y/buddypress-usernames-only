@@ -3,7 +3,7 @@ Contributors: r-a-y
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q6F2EM2BPQ2DS
 Tags: buddypress, username, usernames
 Requires at least: WP 3.0 & BuddyPress 1.5
-Tested up to: WP 3.5.x & BuddyPress 1.7
+Tested up to: WP 3.6.x & BuddyPress 1.8.1
 Stable tag: 0.6
 
 Override display names across your BuddyPress site with usernames.
@@ -46,6 +46,9 @@ If you downloaded this plugin and like it, please:
 
 
 == Changelog ==
+
+= 0.6.1 =
+* Add support to search against usernames when doing a search in the members directory. (Only works in BuddyPress 1.7+)
 
 = 0.6 =
 * Requires at least BuddyPress 1.5
