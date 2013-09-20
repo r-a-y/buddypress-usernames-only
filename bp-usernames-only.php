@@ -344,14 +344,26 @@ function ray_bp_acomment_name( $name, $comment ) {
 add_filter( 'bp_acomment_name' , 'ray_bp_acomment_name', 1, 2 );
 
 /**
- * RSS feed title
+ * RSS feed title.
+ *
+ * We can't use the 'bp_get_activity_feed_title' hook because that filter
+ * strips the HTML tags before plugins can alter the activity action.
+ *
+ * So we have to resort to hacking the $activities_template global before
+ * bp_get_activity_feed_item_title() is called.
+ *
+ * @since 0.6.1
  */
-function ray_bp_get_activity_feed_item_title( $title ) {
-	global $activities_template;
+function ray_bp_uso_filter_activity_action_for_feeds( $retval ) {
+	if ( is_feed() ) {
+		global $activities_template;
 
-	return stripslashes( str_replace_first( $activities_template->activity->user_fullname, ray_bp_username_compatibility( $activities_template->activity ), $title ) );
+		$activities_template->activity->action = ray_replace_first_anchor_text( $activities_template->activity->action, ray_bp_username_compatibility( $activities_template->activity ) );
+	}
+
+	return $retval;
 }
-add_filter( 'bp_get_activity_feed_item_title', 'ray_bp_get_activity_feed_item_title' );
+add_filter( 'bp_get_activity_thread_permalink', 'ray_bp_uso_filter_activity_action_for_feeds' );
 
 
 /* FORUM OVERRIDES *************************************************/
@@ -534,8 +546,82 @@ add_filter( 'get_comment_author', 'ray_get_comment_author' );
  * @since 0.6
  */
 function ray_wp_toolbar_title( $wp_admin_bar ) {
+	if ( ! is_user_logged_in() )
+		return;
+
 	global $current_user, $bp;
 
 	$current_user->display_name = ray_bp_username_compatibility( $bp->loggedin_user->userdata );
 }
 add_action( 'admin_bar_menu', 'ray_wp_toolbar_title', 6 );
+
+
+/** USERNAME SEARCH ************************************************/
+
+/**
+ * During a search in the members directory, search against the username
+ * column as well.
+ *
+ * Only works in BP 1.7+.
+ *
+ * @since 0.6.1
+ *
+ * @param object The BP_User_Query object.
+ */
+function ray_bp_uso_search( $search ) {
+	global $wpdb;
+
+	// no search terms? stop now!
+	if ( empty( $search->query_vars['search_terms'] ) ) {
+		return;
+	}
+
+	if ( ! bp_is_members_component() ) {
+		return;
+	}
+
+	if ( bp_is_user() ) {
+		return;
+	}
+
+	// setup username search
+	$search_terms_clean = mysql_real_escape_string( mysql_real_escape_string( $search->query_vars['search_terms'] ) );
+	$search_terms_clean = like_escape( $search_terms_clean );
+
+	$user_col = bp_is_username_compatibility_mode() ? 'user_login' : 'user_nicename';
+
+	// do the username search
+	$user_ids = $wpdb->get_col(
+		"SELECT ID FROM {$wpdb->users} WHERE {$user_col} LIKE '%" . $search_terms_clean . "%'"
+	);
+
+	// we have results!
+	// merge our search results into the existing results
+	if ( ! empty( $user_ids ) ) {
+		$in_pos = strpos( $search->uid_clauses['where'], 'IN ' );
+
+		// no matches in the current search
+		// setup the WHERE clause appropriately
+		if ( $in_pos === false ) {
+			$search->uid_clauses['where'] = substr( $search->uid_clauses['where'], 0, -5 );
+			$search->uid_clauses['where'] .= 'u.user_id IN ';
+
+			$existing_user_ids = array();
+
+		// there are matches in the current search
+		// so merge them with our search
+		} else {
+			$search->uid_clauses['where'] = substr( $search->uid_clauses['where'], 0, $in_pos + 3 );
+
+			$existing_user_ids = substr( $search->uid_clauses['where'], $in_pos + 4, -1 );
+			$existing_user_ids = explode( ',', $existing_user_ids );
+		}
+
+		$user_ids = array_merge( $user_ids, $existing_user_ids );
+
+		$search->uid_clauses['where'] .= "(" . implode( ',', wp_parse_id_list( $user_ids ) ) . ")";
+
+	}
+
+}
+add_action( 'bp_pre_user_query', 'ray_bp_uso_search' );
