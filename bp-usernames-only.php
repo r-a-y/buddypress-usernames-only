@@ -505,7 +505,7 @@ add_action( 'bp_before_message_meta', 'ray_bp_message_reply_ajax_sent_name' );
 function ray_get_comment_author( $author ) {
 	global $bp, $comment;
 
-	if( $comment->user_id > 0 ) {
+	if( ! empty( $comment->user_id ) ) {
 		if ( bp_loggedin_user_id() == $comment->user_id ) {
 			$displayed_user = $bp->loggedin_user->userdata;
 		} else {
