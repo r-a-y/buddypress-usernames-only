@@ -306,6 +306,9 @@ function ray_bp_fix_activity_action( $action ) {
  * Used in parent activity update
  */
 function ray_bp_get_activity_action( $action, $activity ) {
+	if ( empty( $activity->user_id ) ) {
+		return $action;
+	}
 	return ray_replace_first_anchor_text( $action, ray_bp_username_compatibility( $activity ) );
 }
 // bug in BP 1.7; activity admin page is missing the other filter parameters
