@@ -410,9 +410,7 @@ add_filter( 'bp_get_the_topic_last_poster_name', 'ray_bp_get_the_topic_last_post
  */
 function ray_get_the_author_display_name( $name, $user_id ) {
 	// test to see if we're on a BP group forum page or on any bbPress page
-	if ( bp_is_group_forum() || (
-		function_exists( 'bbpress' ) && is_bbpress()
-	) ) {
+	if ( function_exists( 'bbpress' ) && is_bbpress() ) {
 		// cache username queries with static variable
 		//
 		// tried stuffing in $bp global but didn't work properly
