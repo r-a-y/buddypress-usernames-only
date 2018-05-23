@@ -372,38 +372,6 @@ add_filter( 'bp_get_activity_thread_permalink', 'ray_bp_uso_filter_activity_acti
 /* FORUM OVERRIDES *************************************************/
 
 /**
- * Used in forum topics
- */
-function ray_bp_get_the_topic_post_poster_name( $name ) {
-	global $topic_template;
-
-	if ( bp_is_username_compatibility_mode() ) {
-		$username = $topic_template->post->poster_login;
-	} else {
-		$username = $topic_template->post->poster_nicename;
-	}
-
-	return ray_replace_first_anchor_text( $name, $username );
-}
-add_filter( 'bp_get_the_topic_post_poster_name' , 'ray_bp_get_the_topic_post_poster_name' );
-
-/**
- * Used in forum directory loop
- */
-function ray_bp_get_the_topic_last_poster_name( $name ) {
-	global $forum_template;
-
-	if ( bp_is_username_compatibility_mode() ) {
-		$username = $forum_template->topic->topic_last_poster_login;
-	} else {
-		$username = $forum_template->topic->topic_last_poster_nicename;
-	}
-
-	return ray_replace_first_anchor_text( $name, $username );
-}
-add_filter( 'bp_get_the_topic_last_poster_name', 'ray_bp_get_the_topic_last_poster_name' );
-
-/**
  * Used in the bbPress plugin
  *
  * @since 0.6
