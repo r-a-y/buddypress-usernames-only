@@ -16,14 +16,14 @@ if( ! defined( 'BP_SHOW_DISPLAYNAME_ON_PROFILE' ) ) {
 
 	if( (bool) BP_SHOW_DISPLAYNAME_ON_PROFILE === true ) {
 		// only show the display name for the <h1> tag on a member profile
-		add_action( 'bp_before_member_header', create_function( '',
-			'remove_filter( "bp_displayed_user_fullname", "ray_bp_displayed_user_fullname" );'
-		), 99 );
+		add_action( 'bp_before_member_header', function() {
+			remove_filter( 'bp_displayed_user_fullname', 'ray_bp_displayed_user_fullname' );
+		}, 99 );
 
 		// add back the username filter
-		add_action( 'bp_before_member_header_meta', create_function( '',
-			'add_filter( "bp_displayed_user_fullname",    "ray_bp_displayed_user_fullname" );'
-		), 0 );
+		add_action( 'bp_before_member_header_meta', function() {
+			add_filter( 'bp_displayed_user_fullname', 'ray_bp_displayed_user_fullname' );
+		}, 0 );
 
 		// support for BP Lists
 		if ( function_exists( 'bp_is_lists_component' ) && bp_is_lists_component() && bp_is_single_item() )
@@ -248,13 +248,13 @@ function ray_bp_whats_new_firstname( $name ) {
 
 	return $name;
 }
-add_action( 'bp_before_activity_post_form', create_function( '',
-		'add_filter( "bp_get_user_firstname",    "ray_bp_whats_new_firstname" );'
-), 99 );
+add_action( 'bp_before_activity_post_form', function() {
+	add_filter( 'bp_get_user_firstname', 'ray_bp_whats_new_firstname' );
+}, 99 );
 
-add_action( 'bp_activity_post_form_options', create_function( '',
-		'remove_filter( "bp_get_user_firstname", "ray_bp_whats_new_firstname" );'
-), 0 );
+add_action( 'bp_activity_post_form_options', function() {
+	remove_filter( 'bp_get_user_firstname', 'ray_bp_whats_new_firstname' );
+}, 0 );
 
 /**
  * Used in <title> tag
